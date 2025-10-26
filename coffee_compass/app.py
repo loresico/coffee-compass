@@ -433,10 +433,10 @@ class CoffeeCompassApp:
                 <p style="margin-top: 1rem;">
                     <strong>Data Source:</strong> Coffee Quality Institute (CQI) Arabica Reviews<br>
                     <strong>Created by:</strong> Lorenzo Siconolfi | 
-                    <a href="https://github.com/your-username/coffee-compass" style="color: #8B4513;">
+                    <a href="https://github.com/loresico/coffee-compass" style="color: #8B4513;">
                         GitHub
                     </a> | 
-                    <a href="https://linkedin.com/in/your-profile" style="color: #8B4513;">
+                    <a href="https://linkedin.com/in/lorenzo-siconolfi-1449255b" style="color: #8B4513;">
                         LinkedIn
                     </a>
                 </p>
