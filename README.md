@@ -45,19 +45,14 @@ For coffee buyers, roasters, and enthusiasts, understanding expected flavor prof
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/coffee-compass.git
+git clone https://github.com/loresico/coffee-compass.git
 cd coffee-compass
 
 # Install dependencies with UV
-uv sync
+./setup.sh
 
-# Or with pip
-pip install -r requirements.txt
-
-# Download the dataset
-mkdir -p coffee_compass/data/raw
-curl -o coffee_compass/data/raw/arabica_data.csv \
-  https://raw.githubusercontent.com/jldbc/coffee-quality-database/master/data/arabica_data_cleaned.csv
+# Activate the local virtual environment 
+source .venv/bin/activate
 
 # Train the model (with hyperparameter optimization)
 python -m coffee_compass.scripts.train
@@ -66,7 +61,7 @@ python -m coffee_compass.scripts.train
 python -m coffee_compass.app
 ```
 
-Visit `http://localhost:7860` to use the app!
+Visit `http://127.0.0.1:7860/` to use the app!
 
 ---
 
