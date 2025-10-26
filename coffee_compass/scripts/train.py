@@ -63,7 +63,7 @@ def main():
     package_dir = script_dir.parent
     
     data_path = package_dir / "data" / "raw" / "arabica_data.csv"
-    model_path = package_dir / "models" / "saved" / "flavor_predictor_optimized.joblib"
+    model_path = package_dir / "models" / "saved" / "flavor_predictor.joblib"
     
     print("="*60)
     print("COFFEE COMPASS - TRAINING WITH OPTIMIZATION")

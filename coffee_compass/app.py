@@ -452,7 +452,7 @@ class CoffeeCompassApp:
 def main():
     """Main function to launch the improved Gradio app."""
     # Paths
-    MODEL_PATH = SCRIPT_DIR / "models" / "saved" / "flavor_predictor_optimized.joblib"
+    MODEL_PATH = SCRIPT_DIR / "models" / "saved" / "flavor_predictor.joblib"
     DATA_PATH = SCRIPT_DIR / "data" / "raw" / "arabica_data.csv"
     
     print(f"Package directory: {SCRIPT_DIR}")
