@@ -30,12 +30,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e ".[test]"
-        pip install ruff black
-    
-    - name: Lint with ruff
-      run: |
-        ruff check coffee_compass/ --output-format=github
-      continue-on-error: true  # Don't fail on lint issues
+        pip install ruff black pytest
     
     - name: Check code formatting
       run: |
