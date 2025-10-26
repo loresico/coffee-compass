@@ -7,22 +7,13 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from pathlib import Path
-import sys
 
-# Get script location and set up paths
-SCRIPT_DIR = Path(__file__).parent.resolve()
+# Get paths
+SCRIPT_DIR = Path(__file__).parent  # coffee_compass/
+PROJECT_ROOT = SCRIPT_DIR.parent     # coffee-compass/
 
-# If running from src/, project root is parent
-# If running from project root, use current dir
-if SCRIPT_DIR.name == "src":
-    PROJECT_ROOT = SCRIPT_DIR.parent
-    sys.path.insert(0, str(SCRIPT_DIR))
-else:
-    PROJECT_ROOT = SCRIPT_DIR
-    sys.path.insert(0, str(PROJECT_ROOT / "src"))
-
-from models.flavor_predictor import FlavorPredictor
-from data.preprocess import CoffeePreprocessor
+from coffee_compass.models.flavor_predictor import FlavorPredictor
+from coffee_compass.data.preprocess import CoffeePreprocessor
 
 
 class CoffeeCompassApp:
@@ -31,17 +22,19 @@ class CoffeeCompassApp:
     def __init__(self, model_path: str, data_path: str):
         """Initialize the app with trained model and preprocessor."""
         print("Loading model and preprocessor...")
-        self.predictor = FlavorPredictor.load(model_path)
-        self.preprocessor = CoffeePreprocessor()
+        self.predictor, self.preprocessor = FlavorPredictor.load(model_path)
+        if self.preprocessor is None:
+            self.preprocessor = CoffeePreprocessor()
         
         # Load data to get valid options
         df = self.preprocessor.load_data(data_path)
         df = self.preprocessor.clean_data(df)
         
         # Extract unique values for dropdowns
-        self.countries = sorted(df['Country.of.Origin'].unique().tolist())
-        self.processing_methods = sorted(df['Processing.Method'].unique().tolist())
-        self.varieties = sorted(df['Variety'].unique().tolist())
+        # Extract unique values for dropdowns - filter out NaN
+        self.countries = sorted([c for c in df['Country.of.Origin'].unique() if pd.notna(c)])
+        self.processing_methods = sorted([p for p in df['Processing.Method'].unique() if pd.notna(p)])
+        self.varieties = sorted([v for v in df['Variety'].unique() if pd.notna(v)])
         
         # Altitude range
         self.altitude_min = int(df['altitude_mean_meters'].min())
@@ -290,8 +283,8 @@ Higher altitude and careful processing generally lead to more complex flavors.*
 def main():
     """Main function to launch the Gradio app."""
     # Paths - work from project root
-    MODEL_PATH = PROJECT_ROOT / "src" / "models" / "flavor_predictor.joblib"
-    DATA_PATH = PROJECT_ROOT / "src" / "data" / "arabica_data.csv"
+    MODEL_PATH = SCRIPT_DIR / "models" / "saved" / "flavor_predictor.joblib"
+    DATA_PATH = SCRIPT_DIR / "data" / "raw" / "arabica_data.csv"
     
     print(f"Project root: {PROJECT_ROOT}")
     print(f"Looking for model at: {MODEL_PATH}")
@@ -316,10 +309,12 @@ def main():
     interface.launch(
         server_name="127.0.0.1",
         server_port=7860,
-        share=False,  # Set to True if you want a public link
-        show_error=True
+        show_error=True,
+        share=False,
+        inbrowser=True,
     )
 
 
 if __name__ == "__main__":
+        
     main()

@@ -33,7 +33,8 @@ class FlavorPredictor:
                 'colsample_bytree': 0.8,
                 'min_child_weight': 3,
                 'random_state': 42,
-                'n_jobs': -1
+                'n_jobs': -1,
+                'base_score': 0.5  
             }
         
         self.model_params = model_params
@@ -92,15 +93,9 @@ class FlavorPredictor:
             y_train, y_test, y_pred_train, y_pred_test, verbose
         )
         
-        # Initialize SHAP explainer
         if verbose:
-            print("\nInitializing SHAP explainer...")
-        # Use a sample of training data for faster SHAP computation
-        sample_size = min(100, len(X_train))
-        self.explainer = shap.TreeExplainer(
-            self.model.estimators_[0],  # Use first estimator for SHAP
-            X_train.sample(sample_size, random_state=42)
-        )
+            print("\nSHAP explainer: skipped")
+        self.explainer = None
         
         return metrics
     
@@ -248,13 +243,14 @@ class FlavorPredictor:
         
         return importance_df.head(top_n)
     
-    def save(self, filepath: str):
+    def save(self, filepath: str, preprocessor=None):
         """Save model and metadata to disk."""
         model_data = {
             'model': self.model,
             'feature_names': self.feature_names,
             'target_names': self.target_names,
-            'model_params': self.model_params
+            'model_params': self.model_params,
+            'preprocessor': preprocessor
         }
         joblib.dump(model_data, filepath)
         print(f"Model saved to {filepath}")
@@ -270,7 +266,7 @@ class FlavorPredictor:
         predictor.target_names = model_data['target_names']
         
         print(f"Model loaded from {filepath}")
-        return predictor
+        return predictor, model_data.get('preprocessor')
 
 
 def train_flavor_model(
