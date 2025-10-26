@@ -15,6 +15,7 @@ dependencies = [
     "jobid>=0.3.0",
     "matplotlib>=3.10.7",
     "numpy>=2.3.4",
+    "optuna>=4.5.0",
     "pandas>=2.3.3",
     "plotly>=6.3.1",
     "scikit-learn>=1.7.2",
