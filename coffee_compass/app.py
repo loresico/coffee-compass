@@ -30,7 +30,6 @@ class CoffeeCompassApp:
         df = self.preprocessor.load_data(data_path)
         df = self.preprocessor.clean_data(df)
         
-        # Extract unique values for dropdowns
         # Extract unique values for dropdowns - filter out NaN
         self.countries = sorted([c for c in df['Country.of.Origin'].unique() if pd.notna(c)])
         self.processing_methods = sorted([p for p in df['Processing.Method'].unique() if pd.notna(p)])
