@@ -1,295 +1,256 @@
-# Python UV Template (Always Portable) 🚀
+# ☕ Coffee Compass 🧭
 
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![UV](https://img.shields.io/badge/uv-enabled-blue)](https://github.com/astral-sh/uv)
-[![Portable](https://img.shields.io/badge/portable-100%25-green)](https://github.com/indygreg/python-build-standalone)
+[![Gradio](https://img.shields.io/badge/gradio-4.0+-orange.svg)](https://gradio.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A professional Python project template that **always uses portable Python** - never relies on system installations.
 
-## ✨ Philosophy
 
-- 🎯 **Always Portable** - Consistent Python environment everywhere
-- 📦 **Self-Contained** - No dependency on system Python
-- 🔄 **Reproducible** - Same exact Python version every time
-- 🚀 **Distributable** - Package includes everything needed
+**Specialty Coffee Flavor Profile Predictor**
 
-## 🚀 Quick Start
+Predict the sensory characteristics of specialty arabica coffee based on origin, altitude, processing method, and variety. Built with domain expertise in specialty coffee and machine learning.
 
-```bash
-# 1. Clone or use this template
-git clone https://github.com/yourusername/your-project
-cd your-project
-
-# 2. Run setup (downloads Python 3.13.9 first time, ~2 minutes)
-./setup.sh
-
-# 3. Activate and run
-source .venv/bin/activate
-python src/main.py
-```
-
-That's it! No system Python needed.
-
-## 📁 Project Structure (After Setup)
-
-```
-your-project/
-├── .github/
-│   └── workflows/
-│       └── ci.yml            # CI/CD pipeline
-├── .python/                  # Portable Python 3.13.9 (~80MB, gitignored)
-├── .venv/                    # Virtual environment (gitignored)
-├── src/
-│   ├── __init__.py
-│   └── main.py
-├── tests/
-│   ├── __init__.py
-│   └── test_main.py
-├── .gitignore
-├── CONTRIBUTING.md           # Contribution guidelines
-├── pyproject.toml            # Project configuration
-├── README.md
-├── QUICK_REFERENCE.md
-├── setup.sh         # Setup script
-├── uv.lock
-└── verify-python-version.sh  # Version checker
-```
-
-## 🎯 Common Commands
-
-```bash
-# Setup (first time downloads Python, subsequent runs reuse it)
-./setup.sh
-
-# If something breaks, clean rebuild
-./setup.sh --force-clean
-
-# Add a dependency
-# 1. Edit pyproject.toml
-# 2. Then:
-uv lock
-uv sync
-
-```
-
-## 🔧 How It Works
-
-### First Time
-
-1. Downloads pre-built Python 3.13.9 from [python-build-standalone](https://github.com/indygreg/python-build-standalone)
-2. Installs to `.python/` directory
-3. Creates virtual environment in `.venv/`
-4. Installs dependencies with UV
-
-### Subsequent Runs
-
-1. Finds existing `.python/` installation
-2. Reuses it (no download needed!)
-3. Creates fresh `.venv/`
-4. Installs dependencies
-
-### With `--force-clean`
-
-1. Deletes `.python/`, `.venv/`, `uv.lock`
-2. Downloads Python 3.13.9 again
-3. Fresh installation
-
-## 💡 Why Portable Python?
-
-| System Python | Portable Python |
-|---------------|-----------------|
-| ❌ Different versions on different machines | ✅ Exact same version everywhere |
-| ❌ Might not be installed | ✅ Always available |
-| ❌ User might update it | ✅ Controlled version |
-| ❌ Dependency conflicts | ✅ Self-contained |
-| ❌ "Works on my machine" | ✅ Works everywhere |
-
-## 📊 Disk Space
-
-- `.python/` : ~80 MB (one-time)
-- `.venv/` : ~50 MB (varies by dependencies)
-- **Total**: ~150 MB uncompressed
-- **Package**: ~50 MB compressed
-
-Small price for complete portability!
-
-## 🛠️ Development Workflow
-
-```bash
-# Day 1: Setup
-./setup.sh
-source .venv/bin/activate
-
-# Daily development
-python src/main.py
-pytest
-
-# Add dependencies
-# Edit pyproject.toml, then:
-uv lock && uv sync
-
-# If weird issues
-./setup.sh --force-clean
-```
-
-## 📮 Distribution Workflow
-
-```bash
-# 1. Ensure clean build
-./setup.sh --force-clean
-
-# 2. Test your app
-source .venv/bin/activate
-python src/main.py
-```
-
-## 🎨 Customization
-
-### Change Python Version
-
-Edit `setup.sh`:
-```bash
-PYTHON_VERSION="3.14.*"  # Or any version
-```
-
-Available versions: https://github.com/indygreg/python-build-standalone/releases
-
-## 🐛 Troubleshooting
-
-```bash
-# Virtual environment issues
-rm -rf .venv/ && ./setup.sh
-
-# Complete fresh start
-./setup.sh --force-clean
-
-# Check what you have
-.python/bin/python3 --version
-source .venv/bin/activate && python --version
-```
-
-## 📚 Documentation
-
-- [Setup Guide](README.md) - Detailed guide
-- [Quick Reference](QUICK_REFERENCE.md) - Command cheat sheet
-- [UV Documentation](https://github.com/astral-sh/uv)
-
-## ⚠️ Platform Compatibility
-
-Portable Python is **OS and architecture specific**:
-
-- ✅ macOS x86_64 → macOS x86_64
-- ✅ macOS arm64 (M1/M2/M3) → macOS arm64
-- ✅ Linux x86_64 → Linux x86_64
-- ✅ Linux aarch64 → Linux aarch64
-- ❌ macOS → Linux (use Docker)
-- ❌ x86_64 → arm64 (use Docker)
-- ❌ Windows (use WSL or Docker)
-
-## 🤝 Contributing
-
-### Commit Message Convention
-
-This project follows [Conventional Commits](https://www.conventionalcommits.org/) for clear and structured commit history.
-
-**Format:**
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, no logic change)
-- `refactor`: Code refactoring (no feature change or bug fix)
-- `perf`: Performance improvements
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks (dependencies, config)
-- `ci`: CI/CD changes
-
-**Examples:**
-```bash
-feat(setup): add Python 3.14 support
-fix(package): correct tar.gz extraction path
-docs(readme): update installation instructions
-chore(deps): upgrade uv to latest version
-refactor(setup): improve error handling
-```
-
-**Scope (optional):** Component affected (setup, package, docs, etc.)
-
-### Pull Request Process
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes with conventional commits
-4. Run tests and linting (`pytest && black --check .`)
-5. Update documentation if needed
-6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request with:
-   - Clear description of changes
-   - Link to related issues
-   - Screenshots/examples if applicable
-
-### Code Standards
-
-- **Python Code:** Follow PEP 8, use Black formatter
-- **Bash Scripts:** Use ShellCheck for validation
-- **Documentation:** Clear, concise, with examples
-- **Tests:** Add tests for new features
-
-### Before Submitting
-
-```bash
-# Format code
-black src/ tests/
-
-# Run linting
-flake8 src/ tests/
-
-# Run tests
-pytest tests/
-
-# Verify script works
-./setup.sh --force-clean
-```
-
-### Set Up Commit Message Template (Optional)
-
-```bash
-# Use the included commit message template
-git config commit.template .gitmessage
-
-# Now when you commit, you'll see helpful hints
-git commit
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE) file
-
-## 🙏 Acknowledgments
-
-- [python-build-standalone](https://github.com/indygreg/python-build-standalone) - Pre-built Python distributions
-- [UV](https://github.com/astral-sh/uv) - Fast Python package installer
-- Built with modern Python best practices
-
-## 📧 Support
-
-- 📖 [Documentation](SETUP_GUIDE.md)
-- 🐛 [Issues](https://github.com/yourusername/python-uv-template/issues)
-- 💬 [Discussions](https://github.com/yourusername/python-uv-template/discussions)
+🔗 **[Try the Demo](your-huggingface-space-link)** | 📊 **[Dataset Source](https://github.com/jldbc/coffee-quality-database)**
 
 ---
 
-⭐ If you find this template helpful, please star it!
+## 🎯 What It Does
 
-**Ready to use?** Click "Use this template" above or clone and start building!
+Coffee Compass predicts six sensory attributes that coffee professionals use to evaluate specialty coffee:
+
+- **Aroma** - The fragrance of ground coffee
+- **Flavor** - The taste characteristics 
+- **Aftertaste** - The lingering taste after swallowing
+- **Acidity** - The brightness and liveliness (like wine acidity)
+- **Body** - The texture and weight in the mouth
+- **Balance** - The harmony between flavors
+
+### Why This Matters
+
+For coffee buyers, roasters, and enthusiasts, understanding expected flavor profiles before purchase helps:
+- Buyers make informed sourcing decisions
+- Roasters match beans to their desired profiles
+- Consumers discover coffees matching their taste preferences
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.10+
+- UV (Python package manager)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/coffee-compass.git
+cd coffee-compass
+
+# Install dependencies with UV
+uv sync
+
+# Create data and model directories
+mkdir -p coffee_compass/data/raw coffee_compass/models/saved
+
+# Download the dataset
+curl -o coffee_compass/data/raw/arabica_data.csv \
+  https://raw.githubusercontent.com/jldbc/coffee-quality-database/master/data/arabica_data_cleaned.csv
+
+# Train the model
+python -m coffee_compass.scripts.train
+
+# Launch the Gradio interface
+python -m coffee_compass.app
+```
+
+**⚠️ Important:** Run all commands from the **project root directory** (`coffee-compass/`).
+
+Visit `http://localhost:7860` to use the app!
+
+---
+
+## 🏗️ Project Structure
+
+```
+coffee-compass/                          # Repository (GitHub name with hyphen)
+├── coffee_compass/                      # Package (Python name with underscore)
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── preprocess.py               # Feature engineering
+│   │   └── raw/
+│   │       └── arabica_data.csv        # Dataset
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── flavor_predictor.py         # XGBoost model
+│   │   └── saved/
+│   │       └── flavor_predictor.joblib # Trained model
+│   ├── scripts/
+│   │   ├── __init__.py
+│   │   └── train.py                    # Training script
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   └── visualization.py
+│   └── app.py                           # Gradio interface
+├── pyproject.toml
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 🧠 How It Works
+
+### 1. Feature Engineering
+
+The model uses domain expertise to create meaningful features:
+
+- **Altitude Categories**: High (>1800m), Medium (1400-1800m), Low (<1400m)
+  - *Why:* Higher altitude → slower maturation → denser beans → more complex flavors
+  
+- **Processing Complexity**: Natural (3) > Honey (2) > Washed (1)
+  - *Why:* Natural processing is riskier but can produce unique fruity flavors
+  
+- **Premier Origins**: Ethiopia, Kenya, Panama, Colombia, Costa Rica
+  - *Why:* Historical reputation for high-quality specialty coffee
+  
+- **Premium Varieties**: Geisha, Bourbon, Typica, SL28, SL34
+  - *Why:* Genetic varieties known for exceptional cup quality
+
+### 2. Model Architecture
+
+**Multi-Output XGBoost Regressor**
+- Predicts 6 sensory scores simultaneously
+- Captures relationships between growing conditions and flavor
+- ~200 trees with careful regularization to avoid overfitting
+
+### 3. Performance
+
+- **Test R²**: ~0.75 (varies by attribute)
+- **Test RMSE**: ~0.25 points (on 0-10 scale)
+- Best predictions: Flavor, Balance
+- Most challenging: Body (more subjective)
+
+---
+
+## 🎨 Features
+
+### Interactive Prediction
+- Select country, altitude, processing method, and variety
+- Get instant flavor profile predictions
+- Visualize results with radar charts
+
+### Explainability
+- SHAP values show which features drive predictions
+- Feature importance rankings
+- Coffee expertise annotations
+
+### Example Predictions
+
+**Ethiopian Natural @ 2000m**
+- High acidity (bright, tea-like)
+- Fruity, wine-like characteristics
+- Complex flavor profile
+
+**Colombian Washed @ 1700m**
+- Balanced profile
+- Clean, sweet cup
+- Medium body
+
+---
+
+## 📊 Dataset
+
+**Coffee Quality Institute (CQI) Arabica Reviews**
+- 1,300+ specialty coffee evaluations
+- Professional cupper scores (certified Q Graders)
+- Features: origin, altitude, variety, processing, sensory scores
+
+**Data Source**: [Coffee Quality Database](https://github.com/jldbc/coffee-quality-database)
+
+---
+
+## 🔬 Technical Details
+
+### Dependencies
+- **gradio**: Web interface
+- **xgboost**: Gradient boosting model
+- **scikit-learn**: ML utilities
+- **pandas**: Data manipulation
+- **shap**: Model interpretability
+- **plotly**: Interactive visualizations
+
+### Model Hyperparameters
+```python
+{
+    'n_estimators': 200,
+    'max_depth': 6,
+    'learning_rate': 0.05,
+    'subsample': 0.8,
+    'colsample_bytree': 0.8
+}
+```
+
+---
+
+## 🚧 Roadmap
+
+### Phase 2: Quality Predictor
+- [ ] Add overall quality score prediction (Total.Cup.Points)
+- [ ] Confidence intervals for predictions
+- [ ] Quality grade classification (Specialty vs Commodity)
+
+### Future Enhancements
+- [ ] Coffee recommendation system ("Find me a bright, fruity coffee")
+- [ ] Batch predictions from CSV upload
+- [ ] Price prediction based on quality
+- [ ] Region-specific models for better accuracy
+- [ ] Integration with coffee retailer APIs
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Areas for improvement:
+- Additional feature engineering ideas
+- Model performance optimization
+- UI/UX enhancements
+- Documentation
+
+---
+
+## 👤 Author
+
+Lorenzo Siconolfi
+- Aerospace Engineer → ML Engineering
+- PhD in Computational Fluid Dynamics
+- CFD Software Developer @ Stake F1 Team
+- Specialty coffee enthusiast
+
+Combining computational optimization expertise with machine learning and a passion for specialty coffee.
+
+🔗 [LinkedIn](your-linkedin) | 💻 [GitHub](your-github) | ✉️ [Email](your-email)
+
+---
+
+## 📄 License
+
+MIT License - feel free to use for learning and projects!
+
+---
+
+## 🙏 Acknowledgments
+
+- Coffee Quality Institute for the dataset
+- Specialty coffee community for domain knowledge
+- Open source ML community
+
+---
+
+**Built with ❤️ and ☕**
+
+*Note: This is a machine learning model trained on historical data. Actual coffee flavor depends on many factors including roasting, brewing method, freshness, and water quality. Use predictions as a guide, not gospel!*
+
