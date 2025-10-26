@@ -154,7 +154,6 @@ cython_debug/
 *.pkl
 *.h5
 *.onnx
-data/
 logs/
 outputs/
 checkpoints/
