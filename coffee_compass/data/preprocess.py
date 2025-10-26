@@ -3,10 +3,12 @@ Data preprocessing and feature engineering for coffee quality prediction.
 Applies domain knowledge about specialty coffee to create meaningful features.
 """
 
-from pydoc import describe
+from tabnanny import verbose
 import pandas as pd
 import numpy as np
 from typing import Tuple, List
+
+import matplotlib.pyplot as plt
 
 
 class CoffeePreprocessor:
@@ -38,7 +40,6 @@ class CoffeePreprocessor:
         # If first column is unnamed or empty, it's likely an index
         if df.columns[0] == '' or 'Unnamed' in str(df.columns[0]):
             df = df.iloc[:, 1:]  # Skip first column
-        df.describe()
         return df
     
     def clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -52,6 +53,14 @@ class CoffeePreprocessor:
         # Handle altitude missing values
         # Use mean altitude if available, otherwise regional average
         if 'altitude_mean_meters' in df.columns and df['altitude_mean_meters'].isna().any():
+            
+            # Remove unrealistic altitudes (coffee typically grows 500-3000m)
+            invalid_altitude = (df['altitude_mean_meters'] > 3000) | (df['altitude_mean_meters'] < 0)
+            if invalid_altitude.any():
+                n_removed = invalid_altitude.sum()
+                print(f"   Removing {n_removed} rows with invalid altitude (>3000m or <0)")
+                df = df[~invalid_altitude].copy()
+        
             # Fill with country-specific median (only for countries with data)
             country_medians = df.groupby('Country.of.Origin')['altitude_mean_meters'].median()
             df['altitude_mean_meters'] = df.apply(
@@ -201,7 +210,7 @@ class CoffeePreprocessor:
         """Return the list of feature names used in the model."""
         return self.feature_columns
     
-    def preprocess_pipeline(self, filepath: str, is_training: bool = True) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def preprocess_pipeline(self, filepath: str, is_training: bool = True, verbose: bool = False) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         Complete preprocessing pipeline.
         
@@ -214,10 +223,18 @@ class CoffeePreprocessor:
             y: Target matrix (None if not training)
         """
         df = self.load_data(filepath)
-        print(df.head())
         df = self.clean_data(df)
         df = self.engineer_features(df)
         X, y = self.prepare_features(df, is_training=is_training)
+        
+        if verbose:
+            print(f'Feature matrix = ', X.columns)
+            print('Target = ', y)
+            
+            fig, axes = plt.subplots(1, 1, figsize=(18, 5))
+            axes.plot(X['Country.of.Origin_Honduras'], 'b*', linewidth=2, label='Analytical')
+            plt.tight_layout()
+            plt.show()
         
         return X, y
 
@@ -233,8 +250,8 @@ if __name__ == "__main__":
     preprocessor = CoffeePreprocessor()
     X, y = preprocessor.preprocess_pipeline(file_path, is_training=True)
     
-    # print(f"Features shape: {X.shape}")
-    # print(f"Targets shape: {y.shape}")
-    # print(f"\nFeature columns: {len(preprocessor.get_feature_names())}")
-    # print(f"\nFirst few feature names: {preprocessor.get_feature_names()[:10]}")
-    # print(f"\nTarget columns: {preprocessor.target_columns}")
+    print(f"Features shape: {X.shape}")
+    print(f"Targets shape: {y.shape}")
+    print(f"\nFeature columns: {len(preprocessor.get_feature_names())}")
+    print(f"\nFirst few feature names: {preprocessor.get_feature_names()[:10]}")
+    print(f"\nTarget columns: {preprocessor.target_columns}")
