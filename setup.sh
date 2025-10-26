@@ -7,7 +7,7 @@ set -e
 # Or verify: ./verify-python-version.sh 3.13.9 20251014
 
 RELEASE_DATE="20251014"        # python-build-standalone release date (Oct 14, 2025)
-PYTHON_VERSION="3.13.9"        # Python version available in this release
+PYTHON_VERSION="3.12.12"        # Python version available in this release
 INSTALL_DIR="$(pwd)/.python"
 VENV_DIR="$(pwd)/.venv"
 

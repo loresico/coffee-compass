@@ -154,7 +154,12 @@ cython_debug/
 *.pkl
 *.h5
 *.onnx
-data/
 logs/
 outputs/
 checkpoints/
+
+# Model files (large)
+coffee_compass/models/saved/*.joblib
+coffee_compass/models/saved/*.pkl
+coffee_compass/models/saved/*.json
+!coffee_compass/models/saved/.gitkeep
