@@ -3,7 +3,7 @@ name = "coffee-compass"
 version = "1.0.0"
 description = "A brief description of your project"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = {text = "MIT"}
 authors = [
     {name = "Lorenzo Siconolfi", email = "siconolfi.lorenzo@gmail.com"}
@@ -33,7 +33,7 @@ dev = [
 # Black configuration
 [tool.black]
 line-length = 88
-target-version = ['py313']
+target-version = ['py312']
 
 # Pytest configuration
 [tool.pytest.ini_options]
