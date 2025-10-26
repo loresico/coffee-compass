@@ -62,8 +62,9 @@ def main():
     print(f"Test RMSE: {metrics['test']['rmse']:.4f}")
     
     # Show feature importance
-    print("\n📊 Top 10 Most Important Features:")
-    importance_df = predictor.get_feature_importance(top_n=10)
+    top_n_val = 10
+    print(f"\n📊 Top {top_n_val} Most Important Features:")
+    importance_df = predictor.get_feature_importance(top_n=top_n_val)
     for idx, row in importance_df.iterrows():
         print(f"  {row['feature']:40} {row['importance']:.4f}")
     
