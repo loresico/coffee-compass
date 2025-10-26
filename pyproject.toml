@@ -1,7 +1,7 @@
 [project]
 name = "coffee-compass"
 version = "1.0.0"
-description = "A brief description of your project"
+description = "Specialty Coffee Flavor Profile Predictor using Machine Learning"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
