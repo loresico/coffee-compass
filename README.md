@@ -9,7 +9,7 @@
 
 > Predict the sensory characteristics of specialty arabica coffee based on origin, altitude, processing method, and variety. Built with domain expertise in specialty coffee and modern ML engineering practices.
 
-🔗 **[Try the Demo](your-huggingface-space-link)** | 📊 **[View Dataset](https://github.com/jldbc/coffee-quality-database)**
+🔗 **[Try the Demo](https://huggingface.co/spaces/loresico/coffee-compass)** | 📊 **[View Dataset](https://github.com/jldbc/coffee-quality-database)**
 
 ---
 
